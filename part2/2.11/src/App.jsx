@@ -8,7 +8,7 @@ const App = () => {
 
   // Fetch initial data from the API when the component mounts
   useEffect(() => {
-    fetch('http://localhost:5000/persons')
+    fetch('http://localhost:3001/persons')
       .then(response => response.json())
       .then(data => setPersons(data));
   }, []);
