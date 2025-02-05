@@ -1,15 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456', id: 1 },
-    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
-    { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
-    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
-  ]);
+  const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Fetch initial data from the API when the component mounts
+  useEffect(() => {
+    fetch('http://localhost:5000/persons')
+      .then(response => response.json())
+      .then(data => setPersons(data));
+  }, []);
 
   const handleNameChange = (event) => {
     setNewName(event.target.value);
@@ -37,6 +39,13 @@ const App = () => {
     const newPerson = { name: newName, number: newNumber };
     setPersons(persons.concat(newPerson));
 
+    // Send the new contact to the server
+    fetch('http://localhost:3001/persons', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newPerson)
+    });
+
     // Clear input fields after adding a new contact
     setNewName('');
     setNewNumber('');
@@ -55,7 +64,7 @@ const App = () => {
       <div>
         filter shown with: <input value={searchQuery} onChange={handleSearchChange} />
       </div>
-      <h2>ADD NEW</h2>
+
       {/* Add New Person Form */}
       <form onSubmit={addPerson}>
         <div>
