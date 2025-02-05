@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';  // importing the App component
+import './index.css';  // Optional, if you want to include CSS
+import App from './App';  // Assuming you have an App component
 
 // Render the App component into the root element in the index.html file
 ReactDOM.render(
