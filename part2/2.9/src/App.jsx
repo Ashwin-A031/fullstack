@@ -50,7 +50,7 @@ const App = () => {
       <div>
         filter shown with: <input value={searchQuery} onChange={handleSearchChange} />
       </div>
-
+      <h2>ADD NEW</h2>
       {/* Add New Person Form */}
       <form onSubmit={addPerson}>
         <div>
